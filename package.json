@@ -1,0 +1,12 @@
+{
+  "name": "thorium-wow",
+  "version": "1.0.0",
+  "description": "Thorium WoW Website",
+  "scripts": {
+    "build": "tailwindcss -i ./resources/css/input.css -o ./public/assets/app.min.css --minify",
+    "dev": "tailwindcss -i ./resources/css/input.css -o ./public/assets/app.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.0"
+  }
+}

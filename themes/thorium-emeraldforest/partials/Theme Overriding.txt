@@ -1,0 +1,7 @@
+You can override head, header and footer here for theme specific changes.
+
+head.php
+header.php
+footer.php
+
+Also possible for modules to override layout and color schemes.

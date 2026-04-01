@@ -1,0 +1,59 @@
+RewriteEngine On
+
+# --- Allow safe binary downloads (EXE/MSI/ZIP) ---
+<IfModule mod_mime.c>
+  AddType application/octet-stream .exe
+  AddType application/octet-stream .msi
+  AddType application/zip           .zip
+</IfModule>
+
+<IfModule mod_headers.c>
+  # Force download behavior + cache for 1h
+  <FilesMatch "\.(exe|msi|zip)$">
+    Header set Content-Disposition "attachment"
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Serve existing files directly (bypass PHP) – you already do this below, but keep it explicit
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Canonical host (no www)
+RewriteCond %{HTTP_HOST} ^www\.thorium-reforged\.org$ [NC]
+RewriteRule ^ https://thorium-reforged.org%{REQUEST_URI} [R=301,L]
+
+# HTTPS enforce (proxy-aware)
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteCond %{HTTP:CF-Visitor} !"scheme\":\"https\"" [NC]
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+
+<IfModule mod_headers.c>
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set X-Frame-Options "DENY"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set Permissions-Policy "geolocation=(), camera=(), microphone=()"
+
+  # Make sure NOTHING else sets CSP or old Feature-Policy
+  Header always unset Content-Security-Policy
+  Header always unset content-security-policy
+  Header always unset Feature-Policy
+  Header always unset feature-policy
+</IfModule>
+
+<FilesMatch "\.(env|git|svn|htaccess|htpasswd|ini|log|sh|inc|bak|sql)$">
+  Require all denied
+</FilesMatch>
+
+RedirectMatch 404 /\.git
+RedirectMatch 404 /storage/
+RedirectMatch 404 /app/
+RedirectMatch 404 /vendor/
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+
+ServerSignature Off

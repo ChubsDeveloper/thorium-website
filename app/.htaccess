@@ -1,0 +1,2 @@
+# Deny all access to app directory
+Require all denied

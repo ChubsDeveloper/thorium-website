@@ -1,0 +1,572 @@
+/**
+ * WoW Staff Badges - Refined Edition (Compatible)
+ * Subtle visuals that work with existing UI systems
+ * Save as: public/css/fantasy-badges.css
+ */
+
+/* ===============================
+   REFINED BADGE SYSTEM
+   =============================== */
+
+@keyframes subtle-glow {
+  0%, 100% { 
+    box-shadow: 
+      0 0 0 1px rgba(0, 0, 0, 0.9),
+      0 0 0 2px var(--tooltip-border),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+      0 0 4px var(--tooltip-glow),
+      0 0 8px var(--tooltip-glow-soft),
+      0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  50% { 
+    box-shadow: 
+      0 0 0 1px rgba(0, 0, 0, 0.9),
+      0 0 0 2px var(--tooltip-border),
+      inset 0 1px 0 rgba(255, 255, 255, 0.12),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+      0 0 6px var(--tooltip-glow),
+      0 0 12px var(--tooltip-glow-soft),
+      0 0 20px var(--tooltip-glow-ultra),
+      0 3px 12px rgba(0, 0, 0, 0.4);
+  }
+}
+
+@keyframes gentle-shimmer {
+  0% { 
+    background-position: -200% 0;
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.2;
+  }
+  80% {
+    opacity: 0.2;
+  }
+  100% { 
+    background-position: 200% 0;
+    opacity: 0;
+  }
+}
+
+.role-chip {
+  /* Smaller, more refined size */
+  --fs: 10px;
+  --py: 0.35rem;
+  --px: 0.5rem;
+  --radius: 5px;
+  --weight: 600;
+
+  /* Subtle fantasy colors */
+  --tooltip-bg: #000000;
+  --tooltip-border: #ffd100;
+  --tooltip-inner: #1a1a1a;
+  --tooltip-text: #ffffff;
+  --tooltip-quality: #ffffff;
+  --tooltip-glow: rgba(255, 209, 0, 0.15);
+  --tooltip-glow-soft: rgba(255, 209, 0, 0.08);
+  --tooltip-glow-ultra: rgba(255, 209, 0, 0.04);
+
+  font-size: var(--fs);
+  padding: var(--py) var(--px);
+  border-radius: var(--radius);
+  font-weight: var(--weight);
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  color: var(--tooltip-quality);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1.2;
+  cursor: default;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow: hidden;
+  user-select: none;
+  
+  /* Refined multi-layer background */
+  background: 
+    linear-gradient(145deg, 
+      color-mix(in srgb, var(--tooltip-bg) 85%, white) 0%,
+      var(--tooltip-bg) 25%,
+      var(--tooltip-inner) 75%,
+      color-mix(in srgb, var(--tooltip-bg) 95%, black) 100%
+    ),
+    radial-gradient(ellipse at 30% 10%, 
+      rgba(255, 255, 255, 0.06) 0%, 
+      transparent 50%
+    ),
+    radial-gradient(ellipse at 70% 90%, 
+      var(--tooltip-glow-ultra) 0%, 
+      transparent 60%
+    );
+  
+  border: none;
+  
+  /* Subtle depth and glow */
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 0.9),
+    0 0 0 2px var(--tooltip-border),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.3),
+    0 0 4px var(--tooltip-glow),
+    0 0 8px var(--tooltip-glow-soft),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+  
+  /* Refined text effects */
+  text-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.8),
+    0 1px 2px rgba(0, 0, 0, 0.6),
+    0 0 3px var(--tooltip-quality),
+    0 0 6px var(--tooltip-glow);
+  
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: subtle-glow 8s ease-in-out infinite;
+}
+
+/* Subtle shimmer effects */
+.role-chip::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  background: 
+    linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.15) 30%,
+      rgba(255, 255, 255, 0.25) 50%,
+      rgba(255, 255, 255, 0.15) 70%,
+      transparent 100%
+    );
+  background-size: 300% 100%;
+  animation: gentle-shimmer 12s ease-in-out infinite;
+  border-radius: var(--radius);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.role-chip::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(45deg, 
+      transparent 40%, 
+      var(--tooltip-glow-ultra) 50%, 
+      transparent 60%
+    );
+  opacity: 0;
+  border-radius: var(--radius);
+  transition: opacity 0.3s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Refined hover effects - no floating */
+.role-chip:hover {
+  transform: scale(1.05);
+  animation-play-state: paused;
+  
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 1),
+    0 0 0 2px var(--tooltip-border),
+    inset 0 2px 0 rgba(255, 255, 255, 0.15),
+    inset 0 -2px 0 rgba(0, 0, 0, 0.4),
+    0 0 8px var(--tooltip-glow),
+    0 0 16px var(--tooltip-glow-soft),
+    0 0 24px var(--tooltip-glow-ultra),
+    0 4px 16px rgba(0, 0, 0, 0.4);
+  
+  text-shadow: 
+    0 1px 2px rgba(0, 0, 0, 0.9),
+    0 2px 4px rgba(0, 0, 0, 0.7),
+    0 0 4px var(--tooltip-quality),
+    0 0 8px var(--tooltip-glow),
+    0 0 12px var(--tooltip-glow-soft);
+}
+
+.role-chip:hover::before {
+  animation: gentle-shimmer 4s ease-in-out infinite;
+}
+
+.role-chip:hover::after {
+  opacity: 0.15;
+}
+
+/* Active/pressed state */
+.role-chip:active {
+  transform: scale(1.02);
+  transition: all 0.1s ease;
+}
+
+/* ===============================
+   REFINED LEGENDARY COLORS
+   =============================== */
+
+/* 🔱 OWNER - Legendary Solar Inferno */
+.role-owner {
+  --tooltip-bg: #2a1000;
+  --tooltip-border: #ff8000;
+  --tooltip-inner: #3d1800;
+  --tooltip-quality: #ffaa33;
+  --tooltip-glow: rgba(255, 128, 0, 0.2);
+  --tooltip-glow-soft: rgba(255, 170, 51, 0.1);
+  --tooltip-glow-ultra: rgba(255, 200, 100, 0.05);
+  
+  font-weight: 700;
+  letter-spacing: 0.7px;
+  animation-duration: 6s;
+}
+
+/* 👑 CO-OWNER - Epic Void Nexus */
+.role-co_owner {
+  /* — dark glass tooltip palette — */
+  --tooltip-bg: #0b0d10;
+  --tooltip-inner: #0f1217;
+  --tooltip-border: #1f2937;
+  --tooltip-quality: #00e5ff; /* cool cyan accent */
+  --tooltip-glow: rgba(0, 229, 255, 0.18);
+  --tooltip-glow-soft: rgba(0, 0, 0, 0.45);
+  --tooltip-glow-ultra: rgba(0, 0, 0, 0.65);
+
+  color: #e5e7eb;
+  font-weight: 700;
+  letter-spacing: .6px;
+  animation-duration: 6.5s;
+
+  /* chip styling (if the class wraps the badge) */
+  background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
+  border: 1px solid var(--tooltip-border);
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.02),
+    0 6px 24px rgba(0,0,0,.35),
+    0 0 24px var(--tooltip-glow);
+  transition: transform .12s ease, box-shadow .2s ease, border-color .2s ease, background .2s ease;
+}
+
+.role-co_owner:hover {
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.04),
+    0 8px 28px rgba(0,0,0,.45),
+    0 0 36px var(--tooltip-glow);
+  transform: translateY(-1px);
+}
+
+/* 🏆 STAFF MANAGER - Rare Arcane Storm */
+.role-staff_manager {
+  --tooltip-bg: #001133;
+  --tooltip-border: #0070dd;
+  --tooltip-inner: #002255;
+  --tooltip-quality: #4da6ff;
+  --tooltip-glow: rgba(0, 112, 221, 0.15);
+  --tooltip-glow-soft: rgba(77, 166, 255, 0.08);
+  --tooltip-glow-ultra: rgba(150, 200, 255, 0.04);
+  
+  font-weight: 650;
+  letter-spacing: 0.6px;
+}
+
+/* ⚔️ ADMINISTRATOR - Rare Crimson Wrath */
+.role-administrator {
+  --tooltip-bg: #330000;
+  --tooltip-border: #cc2929;
+  --tooltip-inner: #550000;
+  --tooltip-quality: #ff6666;
+  --tooltip-glow: rgba(204, 41, 41, 0.15);
+  --tooltip-glow-soft: rgba(255, 102, 102, 0.08);
+  --tooltip-glow-ultra: rgba(255, 150, 150, 0.04);
+  
+  font-weight: 650;
+  letter-spacing: 0.6px;
+}
+
+/* ⭐ HEAD GM - Artifact Divine Bronze */
+.role-head_gm {
+  --tooltip-bg: #332200;
+  --tooltip-border: #cd853f;
+  --tooltip-inner: #553d00;
+  --tooltip-quality: #ffcc66;
+  --tooltip-glow: rgba(205, 133, 63, 0.15);
+  --tooltip-glow-soft: rgba(255, 204, 102, 0.08);
+  --tooltip-glow-ultra: rgba(255, 220, 150, 0.04);
+  
+  font-weight: 650;
+  letter-spacing: 0.6px;
+}
+
+/* 🛡️ SENIOR GM - Uncommon Nature's Power */
+.role-senior_gm {
+  --tooltip-bg: #003300;
+  --tooltip-border: #228b22;
+  --tooltip-inner: #005500;
+  --tooltip-quality: #66cc66;
+  --tooltip-glow: rgba(34, 139, 34, 0.12);
+  --tooltip-glow-soft: rgba(102, 204, 102, 0.06);
+  --tooltip-glow-ultra: rgba(150, 255, 150, 0.03);
+  
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* 🌟 INITIATE GM - Uncommon Mystic Waters */
+.role-initiate_gm {
+  --tooltip-bg: #003322;
+  --tooltip-border: #20b2aa;
+  --tooltip-inner: #005544;
+  --tooltip-quality: #66ffcc;
+  --tooltip-glow: rgba(32, 178, 170, 0.12);
+  --tooltip-glow-soft: rgba(102, 255, 204, 0.06);
+  --tooltip-glow-ultra: rgba(150, 255, 230, 0.03);
+  
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* 🔰 TRIAL GM - Poor Battle-worn Steel */
+.role-trial_gm {
+  --tooltip-bg: #222222;
+  --tooltip-border: #9d9d9d;
+  --tooltip-inner: #333333;
+  --tooltip-quality: #cccccc;
+  --tooltip-glow: rgba(157, 157, 157, 0.1);
+  --tooltip-glow-soft: rgba(204, 204, 204, 0.05);
+  --tooltip-glow-ultra: rgba(240, 240, 240, 0.02);
+  
+  font-weight: 500;
+  letter-spacing: 0.4px;
+}
+
+/* ===============================
+   REFINED VIP SYSTEM
+   =============================== */
+
+.vip-chip {
+  --fs: 9px;
+  --py: 0.3rem;
+  --px: 0.5rem;
+  --radius: 4px;
+  --weight: 600;
+  
+  font-size: var(--fs);
+  padding: var(--py) var(--px);
+  border-radius: var(--radius);
+  font-weight: var(--weight);
+  letter-spacing: 0.5px;
+  line-height: 1.2;
+  display: inline-flex;
+  align-items: center;
+  text-transform: uppercase;
+  color: var(--vip-text, #ffffff);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  position: relative;
+  cursor: default;
+  overflow: hidden;
+  user-select: none;
+  margin: 0.2rem;
+  
+  background: var(--vip-bg);
+  border: none;
+  
+  box-shadow: 
+    0 2px 6px var(--vip-shadow),
+    inset 0 1px 0 var(--vip-highlight),
+    0 0 4px var(--vip-glow);
+  
+  text-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.6),
+    0 0 3px rgba(0, 0, 0, 0.4),
+    0 0 2px var(--vip-text);
+  
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: subtle-pulse 10s ease-in-out infinite;
+}
+
+.vip-chip::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    linear-gradient(90deg, 
+      transparent 0%, 
+      rgba(255, 255, 255, 0.1) 50%, 
+      transparent 100%
+    );
+  background-size: 200% 100%;
+  animation: gentle-shimmer 15s ease-in-out infinite;
+  border-radius: var(--radius);
+  pointer-events: none;
+}
+
+.vip-chip:hover {
+  transform: scale(1.08);
+  animation-play-state: paused;
+  
+  box-shadow: 
+    0 4px 12px var(--vip-shadow),
+    inset 0 1px 0 var(--vip-highlight),
+    0 0 8px var(--vip-glow);
+  
+  text-shadow: 
+    0 1px 1px rgba(0, 0, 0, 0.7),
+    0 0 4px rgba(0, 0, 0, 0.5),
+    0 0 3px var(--vip-text);
+}
+
+/* Subtle VIP colors */
+.vip-l1 { 
+  --vip-bg: linear-gradient(135deg, #2d5016 0%, #4a7c59 50%, #1a3009 100%);
+  --vip-text: #8bc34a; 
+  --vip-shadow: rgba(139, 195, 74, 0.15);
+  --vip-highlight: rgba(139, 195, 74, 0.1); 
+  --vip-glow: rgba(139, 195, 74, 0.08);
+}
+
+.vip-l2 { 
+  --vip-bg: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #1e40af 100%);
+  --vip-text: #60a5fa; 
+  --vip-shadow: rgba(96, 165, 250, 0.15);
+  --vip-highlight: rgba(96, 165, 250, 0.1); 
+  --vip-glow: rgba(96, 165, 250, 0.08);
+}
+
+.vip-l3 { 
+  --vip-bg: linear-gradient(135deg, #581c87 0%, #8b5cf6 50%, #6b21a8 100%);
+  --vip-text: #c084fc; 
+  --vip-shadow: rgba(192, 132, 252, 0.15);
+  --vip-highlight: rgba(192, 132, 252, 0.1); 
+  --vip-glow: rgba(192, 132, 252, 0.08);
+}
+
+.vip-l4 { 
+  --vip-bg: linear-gradient(135deg, #a16207 0%, #f59e0b 50%, #ca8a04 100%);
+  --vip-text: #fbbf24; 
+  --vip-shadow: rgba(251, 191, 36, 0.15);
+  --vip-highlight: rgba(251, 191, 36, 0.1); 
+  --vip-glow: rgba(251, 191, 36, 0.08);
+}
+
+.vip-l5 { 
+  --vip-bg: linear-gradient(135deg, #c2410c 0%, #f97316 50%, #ea580c 100%);
+  --vip-text: #fb923c; 
+  --vip-shadow: rgba(251, 146, 60, 0.15);
+  --vip-highlight: rgba(251, 146, 60, 0.1); 
+  --vip-glow: rgba(251, 146, 60, 0.08);
+}
+
+.vip-l6 { 
+  --vip-bg: linear-gradient(135deg, #be123c 0%, #f43f5e 50%, #e11d48 100%);
+  --vip-text: #f87171; 
+  --vip-shadow: rgba(248, 113, 113, 0.15);
+  --vip-highlight: rgba(248, 113, 113, 0.1); 
+  --vip-glow: rgba(248, 113, 113, 0.08);
+}
+
+.vip-l7 { 
+  --vip-bg: linear-gradient(135deg, #0f766e 0%, #06b6d4 50%, #14b8a6 100%);
+  --vip-text: #5eead4; 
+  --vip-shadow: rgba(94, 234, 212, 0.15);
+  --vip-highlight: rgba(94, 234, 212, 0.1); 
+  --vip-glow: rgba(94, 234, 212, 0.08);
+}
+
+.vip-l8 { 
+  --vip-bg: linear-gradient(135deg, #7c2d12 0%, #dc2626 50%, #991b1b 100%);
+  --vip-text: #fcd34d; 
+  --vip-shadow: rgba(252, 211, 77, 0.15);
+  --vip-highlight: rgba(252, 211, 77, 0.1); 
+  --vip-glow: rgba(252, 211, 77, 0.08);
+}
+
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+/* ===============================
+   CLASSIC UI SCROLLBARS
+   =============================== */
+
+.chat-messages::-webkit-scrollbar,
+#chat-messages::-webkit-scrollbar,
+[id$="-messages"]::-webkit-scrollbar { 
+  width: 6px; 
+}
+
+.chat-messages::-webkit-scrollbar-track,
+#chat-messages::-webkit-scrollbar-track,
+[id$="-messages"]::-webkit-scrollbar-track { 
+  background: linear-gradient(180deg, #1a1a1a, #000000); 
+  border: 1px solid #ffd100;
+  border-radius: 3px;
+}
+
+.chat-messages::-webkit-scrollbar-thumb,
+#chat-messages::-webkit-scrollbar-thumb,
+[id$="-messages"]::-webkit-scrollbar-thumb { 
+  background: linear-gradient(180deg, #ffd100, #cc9900); 
+  border-radius: 3px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.chat-messages::-webkit-scrollbar-thumb:hover,
+#chat-messages::-webkit-scrollbar-thumb:hover,
+[id$="-messages"]::-webkit-scrollbar-thumb:hover { 
+  background: linear-gradient(180deg, #ffdd33, #ffd100);
+  box-shadow: 
+    inset 0 1px 0 rgba(255, 255, 255, 0.3),
+    0 0 3px rgba(255, 209, 0, 0.3);
+}
+
+/* ===============================
+   RESPONSIVE DESIGN
+   =============================== */
+
+@media (max-width: 640px) {
+  .role-chip { 
+    --fs: 9px; 
+    --py: 0.3rem; 
+    --px: 0.45rem; 
+    letter-spacing: 0.5px; 
+  }
+  .vip-chip { 
+    --fs: 8px; 
+    --py: 0.25rem; 
+    --px: 0.4rem; 
+    letter-spacing: 0.4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .role-chip, .vip-chip { 
+    animation: none !important; 
+    transition: none !important;
+  }
+  .role-chip::before, .vip-chip::before { 
+    animation: none !important; 
+  }
+  .role-chip:hover, .vip-chip:hover {
+    animation: none !important;
+  }
+}
+
+/* ===============================
+   ACCESSIBILITY
+   =============================== */
+
+.role-chip:focus-visible, .vip-chip:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  box-shadow: 
+    0 0 0 1px rgba(0, 0, 0, 1),
+    0 0 0 3px currentColor,
+    0 0 8px var(--tooltip-glow),
+    0 2px 8px rgba(0, 0, 0, 0.3);
+}

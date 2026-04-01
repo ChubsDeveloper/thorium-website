@@ -1,0 +1,4 @@
+# Block access to theme config files
+<FilesMatch "\.(json|php|inc)$">
+    Require all denied
+</FilesMatch>

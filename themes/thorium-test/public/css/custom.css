@@ -1,0 +1,152 @@
+
+/* PayPal Donation Integration Styles */
+.paypal-donate-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.paypal-donate-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.paypal-donate-btn .btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paypal-donate-btn .btn-loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* PayPal badge styling */
+.paypal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #0070ba;
+    color: white;
+}
+
+/* Enhanced package cards for PayPal */
+.pkg:hover .paypal-donate-btn {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Payment processing overlay */
+.payment-processing {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.payment-processing-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+}
+
+/* PayPal Donation Integration Styles */
+.paypal-donate-btn {
+    position: relative;
+    overflow: hidden;
+}
+
+.paypal-donate-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.paypal-donate-btn .btn-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.paypal-donate-btn .btn-loading::after {
+    content: '';
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+    border: 2px solid transparent;
+    border-top-color: currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* PayPal badge styling */
+.paypal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    background: #0070ba;
+    color: white;
+}
+
+/* Enhanced package cards for PayPal */
+.pkg:hover .paypal-donate-btn {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Payment processing overlay */
+.payment-processing {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.payment-processing-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    color: #333;
+}

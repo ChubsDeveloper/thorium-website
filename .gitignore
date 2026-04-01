@@ -1,0 +1,51 @@
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+
+# IDE & Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Build & Cache
+/storage/
+/public/cache_modelproxy/
+
+# Logs
+*.log
+logs/
+error_log
+
+# OS
+.htaccess.bak
+*.bak
+*.tmp
+
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# Test files
+test_*.php
+*_test.php
+debug*.php
+
+# Backup databases
+*.sql.bak
+backup/
+
+# Node
+npm-debug.log
+yarn-error.log
+package-lock.json
